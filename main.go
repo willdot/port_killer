@@ -38,6 +38,12 @@ func main() {
 		return
 	}
 
+	// Check the PID is the correct part of the process details by trying to convert it to int
+	if _, err := strconv.Atoi(pid); err != nil {
+		fmt.Println("Problem getting the PID of the process. Exiting.")
+		return
+	}
+
 	fmt.Printf("Are you sure you wish to kill process with PID: %v? Y or N\n", pid)
 
 	confirm, err := readFromUserAndTrim(reader)
@@ -49,11 +55,6 @@ func main() {
 
 	if confirm != "Y" {
 		fmt.Println("Exiting without killing port")
-		return
-	}
-
-	if _, err := strconv.Atoi(pid); err != nil {
-		fmt.Println("Problem getting the PID of the process. Exiting.")
 		return
 	}
 
